@@ -1,9 +1,10 @@
-# Matrix-Factorization
-Matrix Factorization implementation using gradient descent.
-
+# Folksonomy-Enhanced-Matrix-Factorization
+Matrix Factorization regularized using item tag history.
 
 #Running
 
 make
-./a.out
-# Folksonomy-Enhanced-Matrix-Factorization
+
+make run
+
+
