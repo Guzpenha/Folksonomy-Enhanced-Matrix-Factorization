@@ -1,7 +1,7 @@
 require 'pry'
 file = File.new("/home/Guz/Dropbox/UFMG/7º Período/POC/DATASET/BX-CSV-Dump/BX-Book-Ratings.csv", "r")
 
-train_size = 0.8
+train_size = 0.4
 test_size = 1-train_size
 count =0
 
@@ -21,23 +21,51 @@ end
 file.close
 
 ratings = ratings.shuffle
-train =  ratings[0..(train_size*ratings.size())]
-test = ratings[(train_size*ratings.size())..-1]
-puts count
 
-file_train = File.new("ratings.csv",'w')
+# normal
+puts ratings.size
+train = ratings[0..(train_size*ratings.size)]
+test =  ratings[(train_size*ratings.size)+1..-1]
+# binding.pry
+
+file_train = File.new("ratings40.csv",'w')
 file_train.write("Header\n")
 train.each do |line|
-	file_train.write(line)
+  file_train.write(line)
 end
 file_train.close()
 
 
-file_test = File.new("targets.csv",'w')
+file_test = File.new("targets40.csv",'w')
 file_test.write("Header\n")
-test.each do |line|		
-	file_test.write(line)
+test.each do |line|   
+  file_test.write(line)
 end
 file_test.close()
 
-# binding.pry
+# 5-Fold
+# (0..4).each do |i|
+#   puts ratings.size
+#   puts "Fold  #{i}"
+#   # puts "#{(i*test_size*count).to_i}..#{((i+1)*test_size*count).to_i}"
+#   test = ratings[(i*test_size*count)..((i+1)*test_size*count)]
+#   del_ratings = ratings.clone  
+#   ((i*test_size*count).to_i..((i+1)*test_size*count).to_i).map { |j| del_ratings.delete_at j }
+#   train =  del_ratings
+#   # binding.pry
+
+#   file_train = File.new("ratings#{i}.csv",'w')
+#   file_train.write("Header\n")
+#   train.each do |line|
+#   	file_train.write(line)
+#   end
+#   file_train.close()
+
+
+#   file_test = File.new("targets#{i}.csv",'w')
+#   file_test.write("Header\n")
+#   test.each do |line|		
+#   	file_test.write(line)
+#   end
+#   file_test.close()
+# end

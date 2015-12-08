@@ -66,6 +66,8 @@ class MatrixFactorization {
 	private:
 		void calculate_bias();
 		void content_analyzer();
+		double calculateSimilarity(unordered_map<string,double> map1, unordered_map<string,double> map2);
+		vector<string> split(string str, char delimiter);
 
 		string jsonFileName;
 		vector<json> itemContent;
@@ -73,13 +75,14 @@ class MatrixFactorization {
 		unordered_map<string,int>  docsWithTerm;
 		vector< unordered_map<string,double> > itemTermWeights;
 		vector< unordered_map<int,int> > itemInvertedIndex;
-		
+		unordered_map<int, vector<pair<int,double> > > docSimilarities;
+		double similarities_mean;
+
 		unordered_map<int, unordered_map<int, double> >  R; 
 		unordered_map<int, vector<double> >  U; 
 		unordered_map<int, vector<double> >  V; 
 		vector<double> item_bias;
 		vector<double> user_bias;
-
 
 		int M;
 		int N;
@@ -87,6 +90,7 @@ class MatrixFactorization {
 		int steps;
 		double alpha; 
 		double beta;
+		double beta_tags;
 		double alpha_bias_item; 
 		double alpha_bias_user; 
 		double beta_bias_item;
